@@ -1,6 +1,6 @@
-### aws-utils
+# aws-utils
 
-# A growing collection of utilites, lambdas, configurations, and experiments
+### A growing collection of utilites, lambdas, configurations, and experiments
 
 _I hope they're helpful_
 
