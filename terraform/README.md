@@ -1,4 +1,4 @@
-##terraform
+## terraform
 
 Examples of using and deploying Terraform. 
 
