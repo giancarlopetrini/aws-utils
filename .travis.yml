@@ -4,4 +4,13 @@ before_script:
   - go vet ./terraform/lambda-apigateway/...
   - env GOOS=linux ARCH=amd64 go build ./terraform/lambda-apigateway/lambda/lambda.go
 
-#
+deploy:
+  provider: s3
+  access_key_id: 
+  secret_access_key:
+  bucket: 
+  skip_cleanup: true
+  region: us-east-1
+  local_dir: ./terraform/lambda-apigateway/lambda/
+  upload_dir : lambda-build
+
