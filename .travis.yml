@@ -1,4 +1,7 @@
 language: go
 
-script:
-  - go test -v ./lambda/lambda
+before_script:
+  - go vet ./terraform/lambda-apigateway/...
+  - env GOOS=linux ARCH=amd64 go build ./terraform/lambda-apigateway/lambda/lambda.go
+
+#
