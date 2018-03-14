@@ -2,8 +2,8 @@ language: go
 before_script:
 - go vet ./terraform/lambda-apigateway/...
 - env GOOS=linux ARCH=amd64 go build ./terraform/lambda-apigateway/lambda/lambda.go
-- zip ./lambda lambda && cp lambda build
-- ls build
+- zip ./lambda lambda
+- cp lambda build
 deploy:
   provider: s3
   access_key_id: $ACCESS_KEY_ID
