@@ -2,7 +2,7 @@ language: go
 before_script:
 - go vet ./terraform/lambda-apigateway/...
 - env GOOS=linux ARCH=amd64 go build ./terraform/lambda-apigateway/lambda/lambda.go
-- zip ./lambda lambda
+- zip ./lambda lambda && cp lambda $TRAVIS_BUILD_DIR/terraform/lambda-apigateway/build
 
 before_deploy:
 - cd $TRAVIS_BUILD_DIR
@@ -14,5 +14,5 @@ deploy:
   bucket: giancarlopetrini-s3-lambda
   skip_cleanup: true
   region: us-east-1
-  local_dir: terraform
+  local_dir: terraform/lambda-apigateway/build
   
