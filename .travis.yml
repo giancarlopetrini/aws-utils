@@ -11,5 +11,5 @@ deploy:
   bucket: giancarlopetrini-s3-lambda
   skip_cleanup: true
   region: us-east-1
-  local_dir: ./build
+  local_dir: build
   
