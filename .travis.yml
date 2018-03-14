@@ -1,17 +1,14 @@
 language: go
-
 before_script:
-  - go vet ./terraform/lambda-apigateway/...
-  - env GOOS=linux ARCH=amd64 go build ./terraform/lambda-apigateway/lambda/lambda.go
-  - zip ./terraform/lambda-apigateway/lambda/lambda
-
+- go vet ./terraform/lambda-apigateway/...
+- env GOOS=linux ARCH=amd64 go build ./terraform/lambda-apigateway/lambda/lambda.go
+- zip ./lambda lambda
 deploy:
   provider: s3
-  access_key_id: 
-  secret_access_key:
+  access_key_id: $access_key_id
+  secret_access_key: $secret_access_key 
   bucket: giancarlopetrini-s3-lambda
   skip_cleanup: true
   region: us-east-1
-  local_dir: ./terraform/lambda-apigateway/lambda/
-  upload_dir : lambda-build
-
+  local_dir: "./lambda.zip"
+  upload_dir: lambda-build
