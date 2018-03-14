@@ -10,4 +10,4 @@ deploy:
   bucket: giancarlopetrini-s3-lambda
   skip_cleanup: true
   region: us-east-1
-  local_dir: ./terraform/lambda-apigateway/build
+  local_dir: terraform/lambda-apigateway/build
