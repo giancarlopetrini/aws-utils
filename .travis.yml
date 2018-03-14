@@ -2,10 +2,11 @@ language: go
 before_script:
 - go vet ./terraform/lambda-apigateway/...
 - env GOOS=linux ARCH=amd64 go build ./terraform/lambda-apigateway/lambda/lambda.go
-- zip ./lambda lambda && cp lambda.zip $TRAVIS_BUILD_DIR/terraform/lambda-apigateway/build
+- zip ./lambda lambda
 
 before_deploy:
 - cd $TRAVIS_BUILD_DIR
+- cp lambda.zip terraform/lambda-apigateway/build
 
 deploy:
   provider: s3
