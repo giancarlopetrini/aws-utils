@@ -3,7 +3,7 @@ provider "aws" {
   region  = "us-east-1"
 }
 
-resource "aws_s3_bucket" "lambda-apigateway-s3ls" {
+resource "aws_s3_bucket" "lambda-apigateway-s3" {
   bucket        = "giancarlopetrini-s3-lambda"
   force_destroy = true
 
