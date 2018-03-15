@@ -4,7 +4,7 @@ before_script:
 
 before_deploy:
 - cd $TRAVIS_BUILD_DIR
-- env GOOS=linux ARCH=amd64 go build lambda-apigateway/terraform/lambda-apigateway/lambda/lambda.go
+- env GOOS=linux ARCH=amd64 go build terraform/lambda-apigateway/lambda/lambda.go
 - zip ./lambda lambda
 - cp lambda.zip terraform/lambda-apigateway/build
 
