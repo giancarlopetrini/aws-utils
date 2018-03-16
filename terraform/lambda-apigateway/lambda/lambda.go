@@ -1,26 +1,36 @@
 package main
 
 import (
-	"fmt"
+	"errors"
+	"log"
 
+	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
 )
 
-// Request - lambda expects json with name key
-type Request struct {
-	Name string `json:"name"`
-}
+var (
+	// ErrNameNotProvided is thrown when a name is not provided
+	ErrNameNotProvided = errors.New("no name was provided in the HTTP body")
+)
 
-// Response - send back message
-type Response struct {
-	Message string `json:"message"`
-}
+// Handler is your Lambda function handler
+// It uses Amazon API Gateway request/responses provided by the aws-lambda-go/events package,
+// However you could use other event sources (S3, Kinesis etc), or JSON-decoded primitive types such as 'string'.
+func Handler(request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
 
-// Handler - get name request, format and return response
-func Handler(request Request) (Response, error) {
-	return Response{
-		Message: fmt.Sprintf("Hello, %s!", request.Name),
+	// stdout and stderr are sent to AWS CloudWatch Logs
+	log.Printf("Processing Lambda request %s\n", request.RequestContext.RequestID)
+
+	// If no name is provided in the HTTP request body, throw an error
+	if len(request.Body) < 1 {
+		return events.APIGatewayProxyResponse{}, ErrNameNotProvided
+	}
+
+	return events.APIGatewayProxyResponse{
+		Body:       "Hello " + request.Body,
+		StatusCode: 200,
 	}, nil
+
 }
 
 func main() {
