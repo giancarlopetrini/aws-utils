@@ -39,17 +39,15 @@ output "certificate-info" {
   ]
 }
 
-/* resource "aws_api_gateway_domain_name" "apitest" {
-  domain_name = "apitest"
+resource "aws_api_gateway_domain_name" "apitest" {
+  depends_on  = ["aws_route53_record.cert-valid"]
+  domain_name = "apitest.giancarlopetrini.com"
 
-  #certificate_name        = "example-api"
-  #certificate_body        = "${file("${path.module}/example.com/example.crt")}"
-  #certificate_chain       = "${file("${path.module}/example.com/ca.crt")}"
-  #certificate_private_key = "${file("${path.module}/example.com/example.key")}"
+  certificate_arn = "${aws_acm_certificate.cert.arn}"
 }
 
 resource "aws_route53_record" "apitest" {
-  zone_id = "${data.aws_route53_zone.selected.id}" # See aws_route53_zone for how to create this
+  zone_id = "${data.aws_route53_zone.selected.id}"
 
   name = "${aws_api_gateway_domain_name.apitest.domain_name}"
   type = "A"
@@ -59,5 +57,4 @@ resource "aws_route53_record" "apitest" {
     zone_id                = "${aws_api_gateway_domain_name.apitest.cloudfront_zone_id}"
     evaluate_target_health = true
   }
-} */
-
+}
