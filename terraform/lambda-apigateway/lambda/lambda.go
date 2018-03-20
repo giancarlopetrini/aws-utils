@@ -8,7 +8,7 @@ import (
 )
 
 // Handler - Lambda function handler
-func Handler(request events.APIGatewayProxyRequest) events.APIGatewayProxyResponse {
+func Handler(request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
 
 	// stdout and stderr are sent to AWS CloudWatch Logs
 	log.Printf("Processing Lambda request %s\n", request.RequestContext.RequestID)
@@ -18,13 +18,13 @@ func Handler(request events.APIGatewayProxyRequest) events.APIGatewayProxyRespon
 		return events.APIGatewayProxyResponse{
 			Body:       "Welcome to apitest.giancarlopetrini.com",
 			StatusCode: 200,
-		}
+		}, nil
 	}
 
 	return events.APIGatewayProxyResponse{
 		Body:       "Hello " + request.Body,
 		StatusCode: 200,
-	}
+	}, nil
 
 }
 
