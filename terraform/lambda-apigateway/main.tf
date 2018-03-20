@@ -58,3 +58,9 @@ resource "aws_route53_record" "apitest" {
     evaluate_target_health = true
   }
 }
+
+resource "aws_api_gateway_base_path_mapping" "test" {
+  api_id      = "${aws_api_gateway_rest_api.lambda-gateway.id}"
+  stage_name  = "${aws_api_gateway_deployment.lambda-gateway.stage_name}"
+  domain_name = "${aws_api_gateway_domain_name.apitest.domain_name}"
+}
